@@ -1,14 +1,23 @@
 const connection = require('./connection')
 
 module.exports = {
-  addTask
+  addTask,
+  getTasks
 }
 
 function addTask (task, db = connection) {
-  const { id, details, priority, status } = task
+  const { details } = task
   return db('todos')
-    .insert({ id, details, priority, status })
-    .then(todo => {
-      return todo
+    .insert({ details })
+    .then(idArr => {
+      return findTodo(idArr[0], db)
     })
+}
+
+function getTasks (db = connection) {
+  return db('todos').select()
+}
+
+function findTodo (id, db = connection) {
+  return db('todos').where({ id }).select().first()
 }

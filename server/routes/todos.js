@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router
+const router = express.Router()
 
 const db = require('../db/db')
 
@@ -8,6 +8,15 @@ router.post('/', (req, res) => {
     .then(todo => {
       res.json(todo)
       return null
+    })
+    .catch(err => logErr(err))
+})
+
+router.get('/', (req, res) => {
+  db.getTasks()
+    .then((tasks) => {
+      console.log(tasks)
+      return res.json(tasks)
     })
     .catch(err => logErr(err))
 })
