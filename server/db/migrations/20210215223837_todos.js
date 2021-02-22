@@ -5,8 +5,8 @@ exports.up = function (knex) {
     table.int('priority')
     table.string('status')
   })
-};
+}
 
 exports.down = function (knex) {
   return knex.schema.dropTable('todos')
-};
+}
