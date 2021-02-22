@@ -5,12 +5,23 @@ const connection = knex(config.test)
 const { addTask } = require('./db')
 
 beforeAll(() => connection.migrate.latest())
-beforeEach(() => {
-  return connection.migrate.latest()
-    .then(() => connection.seed.run())
-})
+beforeEach(() => connection.seed.run())
 
 describe('addTasks', () => {
+  test('saves a task into db', () => {
+    expect.assertions(2)
+    const task = { details: 'new task' }
+    return addTask(task, connection)
+      .then(() => {
+        return connection('todos').select()
+      }).then(todos => {
+        expect(todos).toHaveLength(4)
+        console.log(todos)
+        expect(todos[3].details).toEqual('new task')
+        return null
+      })
+  })
+
   test('returns newly created task', () => {
     expect.assertions(1)
     const task = { details: 'new task' }
@@ -27,20 +38,4 @@ describe('addTasks', () => {
         return null
       })
   })
-  
-  test('saves a task into db', () => {
-    expect.assertions(2)
-    const task = { details: 'new task' }
-    return addTask(task, connection)
-      .then(() => {
-        return connection('todos').select()
-      }).then(todos => {
-        expect(todos).toHaveLength(4)
-        console.log(todos)
-        expect(todos[3].details).toEqual('new task')
-        return null
-      })
-  })
-
-  
 })
