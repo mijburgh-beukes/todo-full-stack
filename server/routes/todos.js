@@ -5,8 +5,8 @@ const db = require('../db/db')
 
 router.post('/', (req, res) => {
   db.addTask(req.body)
-    .then(todo => {
-      res.json(todo)
+    .then(task => {
+      res.json(task)
       return null
     })
     .catch(err => logErr(err))
