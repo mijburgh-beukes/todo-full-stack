@@ -16,7 +16,6 @@ describe('addTasks', () => {
         return connection('todos').select()
       }).then(todos => {
         expect(todos).toHaveLength(4)
-        console.log(todos)
         expect(todos[3].details).toEqual('new task')
         return null
       })
@@ -27,7 +26,6 @@ describe('addTasks', () => {
     const task = { details: 'new task' }
     return addTask(task, connection)
       .then(newTask => {
-        console.log(newTask)
         const { details } = task
         expect(newTask).toEqual({
           id: 4,

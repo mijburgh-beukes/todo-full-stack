@@ -9,20 +9,23 @@ router.post('/', (req, res) => {
       res.json(task)
       return null
     })
-    .catch(err => logErr(err))
+    .catch(() => res.sendStatus(500))
 })
+// .catch((res, err) => logErr(err))
 
 router.get('/', (req, res) => {
   db.getTasks()
     .then((tasks) => {
-      console.log(tasks)
+      // console.log(tasks)
       return res.json(tasks)
     })
-    .catch(err => logErr(err))
+    .catch(() => res.sendStatus(500))
 })
 
-function logErr (res, err) {
-  return res.status(500).send('DB erro: ' + err.message)
-}
+// .catch(() => res.sendStatus(500))
+
+// function logErr (res, err) {
+//   return res.status(500).send('DB erro: ' + err.message)
+// }
 
 module.exports = router
