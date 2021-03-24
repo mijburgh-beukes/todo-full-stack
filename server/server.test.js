@@ -21,7 +21,7 @@ describe('POST /api/v1/todos', () => {
     addTask.mockImplementation(() => Promise.resolve(fakeTodo))
     promise = request(server)
       .post('/api/v1/todos')
-      .send({ details: 'new task'})
+      .send({ details: 'new task' })
   })
 
   test('returns a 201 status', () => {
