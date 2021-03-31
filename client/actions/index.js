@@ -17,13 +17,13 @@ function setError (message) {
 }
 
 export function saveTodo (task) {
-  return (dispatch => {
+  return dispatch => {
     postTodo(task)
       .then((newTodo) => {
         return dispatch(addTodo(newTodo))
       })
       .catch(err => {
-        dispatch(setError(err))
+        return dispatch(setError(err))
       })
-  })
+  }
 }

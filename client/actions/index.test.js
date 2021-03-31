@@ -29,15 +29,16 @@ describe('saveTodo', () => {
   })
 
   describe('when api call is unsuccessful', () => {
+    const error = new Error('not happy')
     beforeAll(() => {
       jest.clearAllMocks()
-      postTodo.mockImplementation(() => Promise.reject('not happy'))
+      postTodo.mockImplementation(() => Promise.reject(error))
       saveTodo('new task')(fakeDispatch)
     })
 
     test('dispatches an error action', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_ERROR)
-      expect(fakeDispatch.mock.calls[0][0].message).toEqual('not happy')
+      expect(fakeDispatch.mock.calls[0][0].message).toEqual(error)
     })
   })
 })
