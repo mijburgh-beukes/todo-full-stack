@@ -21,7 +21,7 @@ fakeStore.getState.mockImplementation(() => ({
 describe('<Todos />', () => {
   test('list out todos from redux', async () => {
     render(<Provider store={fakeStore}><Todos /></Provider>)
-    const items = await (screen.findAllByRole('listitem'))
+    const items = await screen.findAllByRole('listitem')
     expect(items.length).toBe(3)
   })
 })
