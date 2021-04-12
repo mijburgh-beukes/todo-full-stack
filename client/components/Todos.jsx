@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Todo from './Todo'
+import { fetchTodos } from '../apis'
 
-function Todos ({ todos }) {
+function Todos ({ dispatch, todos }) {
+  useEffect(() => {
+    dispatch(fetchTodos())
+  }, [])
+
   return (
     <>
       <input id="toggle-all" className="toggle-all" type="checkbox" />
