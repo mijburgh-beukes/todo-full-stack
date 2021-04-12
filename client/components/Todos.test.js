@@ -22,6 +22,6 @@ describe('<Todos />', () => {
   test('list out todos from redux', async () => {
     render(<Provider store={fakeStore}><Todos /></Provider>)
     const items = await screen.findAllByRole('listitem')
-    expect(items.length).toBe(3)
+    expect(items).toHaveLength(3)
   })
 })
